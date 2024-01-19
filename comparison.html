@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <p><title>Golf Ball Comparison</title></p>
+    <p><h2>PRICING IS PER DOZEN</h2></p>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        input[type="button"] {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .highlight {
+            background-color: #c4e5f5;
+        }
+
+        .grade-label {
+            font-weight: bold;
+        }
+
+        .grade-image {
+            max-width: 50px;
+            max-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Golf Ball Comparison</h1>
+
+    <p>Select two grades to compare:</p>
+
+    <form>
+        <label for="grade1">Grade 1:</label>
+        <select id="grade1">
+            <option value="AAAA - Mint">AAAA - Mint</option>
+            <option value="AAA - Near Mint">AAA - Near Mint</option>
+            <option value="AA - Good">AA - Good</option>
+            <option value="A - Practice">A - Practice</option>
+            <option value="X - Not for play">X - Not for play</option>
+        </select>
+
+        <label for="grade2">Grade 2:</label>
+        <select id="grade2">
+            <option value="AAAA - Mint">AAAA - Mint</option>
+            <option value="AAA - Near Mint">AAA - Near Mint</option>
+            <option value="AA - Good">AA - Good</option>
+            <option value="A - Practice">A - Practice</option>
+            <option value="X - Not for play">X - Not for play</option>
+        </select>
+
+        <input type="button" value="Compare" onclick="compareGrades()">
+    </form>
+
+    <h2>Comparison Results</h2>
+
+    <table id="comparisonTable">
+        <tr>
+            <th>Attribute</th>
+            <th class="grade-label">Grade 1</th>
+            <th class="grade-label">Grade 2</th>
+        </tr>
+        <!-- Comparison results will be displayed here dynamically -->
+    </table>
+
+    <script>
+        function compareGrades() {
+            var grade1 = document.getElementById("grade1").value;
+            var grade2 = document.getElementById("grade2").value;
+
+            var table = document.getElementById("comparisonTable");
+            table.innerHTML = ""; // Clear previous results
+
+            var attributes = ["Price", "Condition", "Scuffs", "Playability"]; // Updated attribute names
+            var grades = {
+                "AAAA - Mint": {"Price": "9.00", "Condition": "Like New", "Scuffs": "Minimal to None", "Playability": "Best", "Image": "image1.jpg"},
+                "AAA - Near Mint": {"Price": "7.00", "Condition": "Slight Wear", "Scuffs": "Minor", "Playability": "Excellent", "Image": "image2.jpg"},
+                "AA - Good": {"Price": "5.00", "Condition": "Noticeable Wear", "Scuffs": "Major", "Playability": "Playable", "Image": "image3.jpg"},
+                "A - Practice": {"Price": "3.00", "Condition": "Visible Wear", "Scuffs": "Significant", "Playability": "Suitable for Practice", "Image": "image4.jpg"},
+                "X - Not for play": {"Price": "3.00", "Condition": "Extensive Wear", "Scuffs": "Major Damage/Deffects", "Playability": "None", "Image": "image5.jpg"},
+            };
+
+            for (var i = 0; i < attributes.length; i++) {
+                var row = table.insertRow(-1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+
+                cell1.innerHTML = attributes[i];
+                cell2.innerHTML = grades[grade1][attributes[i]];
+                cell3.innerHTML = grades[grade2][attributes[i]];
+
+                // Highlight the cheaper option
+                if (parseFloat(grades[grade1]["Price"]) < parseFloat(grades[grade2]["Price"])) {
+                    cell2.classList.add("highlight");
+                } else {
+                    cell3.classList.add("highlight");
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
